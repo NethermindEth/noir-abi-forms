@@ -8,15 +8,18 @@ importers:
 
   .:
     dependencies:
+      '@aztec/accounts':
+        specifier: ^0.72.1
+        version: 0.72.1(typescript@5.6.3)(zod@3.24.1)
       '@aztec/aztec.js':
         specifier: ^0.72.1
         version: 0.72.1(typescript@5.6.3)(zod@3.24.1)
       '@aztec/foundation':
-        specifier: ^0.71.0
-        version: 0.71.0
+        specifier: ^0.72.1
+        version: 0.72.1
       '@aztec/types':
-        specifier: ^0.71.0
-        version: 0.71.0(typescript@5.6.3)
+        specifier: ^0.72.1
+        version: 0.72.1(typescript@5.6.3)
       '@hookform/resolvers':
         specifier: ^3.10.0
         version: 3.10.0(react-hook-form@7.54.2(react@18.3.1))
@@ -182,13 +185,13 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
+  '@aztec/accounts@0.72.1':
+    resolution: {integrity: sha512-4x0JycbMfLH8e90uKd+a25VP3Q9ch6JhvDJ4t3qvKGjPNIUfCocOxftgDhlavYnVDryBT0NTRMl+vWlDBP/f3A==}
+    engines: {node: '>=18'}
+
   '@aztec/aztec.js@0.72.1':
     resolution: {integrity: sha512-8vzBYWcCNWu1To0ctnG+84T8CgkSDqGijbAEoPzQlmYPQ1c2bLEmkZ4fiRkX18swL///wuwXwGwGTw9TMzjGaA==}
     engines: {node: '>=18'}
-
-  '@aztec/bb.js@0.71.0':
-    resolution: {integrity: sha512-U2JO6P03Yyci47Gvb9eziT7QvxmAJu/3k2YWRNY7RYmbYdxM3HHcQ8XIC7mhM2qZdGUzWk63+cAS9r8w+c/jJA==}
-    hasBin: true
 
   '@aztec/bb.js@0.72.1':
     resolution: {integrity: sha512-CyySqBvaA/TJ/e8KksDp6vS44IUMY2LNJbigm4rKc3jJXjj0xc33V6V5DfC9kR0iVGnFFsvm+BlVBxFsCIQaAg==}
@@ -202,34 +205,23 @@ packages:
     resolution: {integrity: sha512-rYRfMMV16gHBbDtB3eyE0zNPdvhVma0EJw2mbE1nd0xrWiwUQQoqvcwDjROndWdoK/PRYFqfdJVk7qU8iCJPdw==}
     engines: {node: '>=18'}
 
-  '@aztec/ethereum@0.71.0':
-    resolution: {integrity: sha512-DgV5QsHMwNe2aT2rZeL0ziS0VDsQKdULjG1z0Chyi7Lucgs75LagWtCf8QmNVK3BHYKUqBWZG/Ppsy9jkAJPYQ==}
+  '@aztec/entrypoints@0.72.1':
+    resolution: {integrity: sha512-vTwuTO0iKZqUMeGDXs7oefzTTJAR2q/B0qSsNLth9L6/9mU9zAgitnGTR8a2rrUvLy0wO8dYqE4DGySoYFfgYA==}
     engines: {node: '>=18'}
 
   '@aztec/ethereum@0.72.1':
     resolution: {integrity: sha512-z4rmoNZcfonKZk/NDx9iNXoMnYDgvj0lbHIguk9DQh/rkgKUTeSdYXvYR+5/bX9AMpp6VyvqgzqINPA61aWAhw==}
     engines: {node: '>=18'}
 
-  '@aztec/foundation@0.71.0':
-    resolution: {integrity: sha512-RkZ6thepAzfwFua8YKhGkrAELWcBsdux/x5AQuQJSQ2ERIzAKw7y6WdCnlP+xg0MUyCG4Vke+ybFN1Ev8cbOFA==}
-    engines: {node: '>=18'}
-
   '@aztec/foundation@0.72.1':
     resolution: {integrity: sha512-MGZQSy3q0bZXyE13KcoAotF5MV9U0h0cJ4RC9eSjHd7i9vhv1VukwqjPz9EQEK13Wybb0vwEj0FZBbB9DagUTg==}
     engines: {node: '>=18'}
-
-  '@aztec/l1-artifacts@0.71.0':
-    resolution: {integrity: sha512-bKFIS0QSroA3ethorW4KHBFFp3tQ7JTsEjAVUqjnXhmfSLsMF9tyjG/y6Z3BfSamLSmNj43NE7sgVvn5o/xnVA==}
 
   '@aztec/l1-artifacts@0.72.1':
     resolution: {integrity: sha512-72sPg8YNjmHcMXRXt+htoU++bfFragcLl6FDJ8QBJ1CPIb2FnTsdki3onqIoyZ9aZEWrAMRlO5jrGMPn4uaiEg==}
 
   '@aztec/protocol-contracts@0.72.1':
     resolution: {integrity: sha512-Sb3EbbW6RYJ14BmYa1yHxBLYn6B/upoT1u4J9bh59q7E/o1Z/POw5oHt39mMBKUL+YVSpeHb4OVuKT+t/vNZpQ==}
-    engines: {node: '>=18'}
-
-  '@aztec/types@0.71.0':
-    resolution: {integrity: sha512-XfkBi4HNG0BtZr5h9DwtfsbHl2VnI3jAiTGGTKYeio2BVM3YQvclQhkT8RgxYkzGwXpVSRnpqZ2Q5ZuT/I8nVw==}
     engines: {node: '>=18'}
 
   '@aztec/types@0.72.1':
@@ -3460,14 +3452,6 @@ packages:
       typescript:
         optional: true
 
-  ox@0.6.5:
-    resolution: {integrity: sha512-vmnH8KvMDwFZDbNY1mq2CBRBWIgSliZB/dFV0xKp+DfF/dJkTENt6nmA+DzHSSAgL/GO2ydjkXWvlndJgSY4KQ==}
-    peerDependencies:
-      typescript: '>=5.4.0'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   p-limit@2.3.0:
     resolution: {integrity: sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w==}
     engines: {node: '>=6'}
@@ -4366,14 +4350,6 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  viem@2.22.11:
-    resolution: {integrity: sha512-r86JkRcE8GVTRKBZADkT01EbmIAkjqJE3xcgeIk1AznKYE/KQfuaki8vZwaOoqQd5jqVZ7m5kGtFFsRe6LEWrg==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   viem@2.22.8:
     resolution: {integrity: sha512-iB3PW/a/qzpYbpjo3R662u6a/zo6piZHez/N/bOC25C79FYXBCs8mQDqwiHk3FYErUhS4KVZLabKV9zGMd+EgQ==}
     peerDependencies:
@@ -4563,6 +4539,24 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
 
+  '@aztec/accounts@0.72.1(typescript@5.6.3)(zod@3.24.1)':
+    dependencies:
+      '@aztec/aztec.js': 0.72.1(typescript@5.6.3)(zod@3.24.1)
+      '@aztec/circuit-types': 0.72.1(typescript@5.6.3)
+      '@aztec/circuits.js': 0.72.1(typescript@5.6.3)
+      '@aztec/entrypoints': 0.72.1(typescript@5.6.3)(zod@3.24.1)
+      '@aztec/ethereum': 0.72.1(typescript@5.6.3)
+      '@aztec/foundation': 0.72.1
+      '@aztec/types': 0.72.1(typescript@5.6.3)
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - bufferutil
+      - debug
+      - supports-color
+      - typescript
+      - utf-8-validate
+      - zod
+
   '@aztec/aztec.js@0.72.1(typescript@5.6.3)(zod@3.24.1)':
     dependencies:
       '@aztec/circuit-types': 0.72.1(typescript@5.6.3)
@@ -4582,17 +4576,6 @@ snapshots:
       - typescript
       - utf-8-validate
       - zod
-
-  '@aztec/bb.js@0.71.0':
-    dependencies:
-      comlink: 4.4.2
-      commander: 12.1.0
-      debug: 4.4.0
-      fflate: 0.8.2
-      pako: 2.1.0
-      tslib: 2.8.1
-    transitivePeerDependencies:
-      - supports-color
 
   '@aztec/bb.js@0.72.1':
     dependencies:
@@ -4640,21 +4623,21 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@aztec/ethereum@0.71.0(typescript@5.6.3)':
+  '@aztec/entrypoints@0.72.1(typescript@5.6.3)(zod@3.24.1)':
     dependencies:
-      '@aztec/foundation': 0.71.0
-      '@aztec/l1-artifacts': 0.71.0
-      '@viem/anvil': 0.0.10
-      dotenv: 16.4.7
+      '@aztec/aztec.js': 0.72.1(typescript@5.6.3)(zod@3.24.1)
+      '@aztec/circuit-types': 0.72.1(typescript@5.6.3)
+      '@aztec/circuits.js': 0.72.1(typescript@5.6.3)
+      '@aztec/foundation': 0.72.1
+      '@aztec/protocol-contracts': 0.72.1(typescript@5.6.3)
       tslib: 2.8.1
-      viem: 2.22.11(typescript@5.6.3)(zod@3.24.1)
-      zod: 3.24.1
     transitivePeerDependencies:
       - bufferutil
       - debug
       - supports-color
       - typescript
       - utf-8-validate
+      - zod
 
   '@aztec/ethereum@0.72.1(typescript@5.6.3)':
     dependencies:
@@ -4671,35 +4654,6 @@ snapshots:
       - supports-color
       - typescript
       - utf-8-validate
-
-  '@aztec/foundation@0.71.0':
-    dependencies:
-      '@aztec/bb.js': 0.71.0
-      '@koa/cors': 5.0.0
-      '@noble/curves': 1.8.1
-      bn.js: 5.2.1
-      c-kzg: 4.0.0-alpha.1
-      colorette: 2.0.20
-      debug: 4.4.0
-      detect-node: 2.1.0
-      elliptic: 6.6.1
-      hash.js: 1.1.7
-      koa: 2.15.3
-      koa-bodyparser: 4.4.1
-      koa-compress: 5.1.1
-      koa-router: 12.0.1
-      leveldown: 6.1.1
-      levelup: 5.1.1
-      lodash.chunk: 4.2.0
-      lodash.clonedeepwith: 4.5.0
-      memdown: 6.1.1
-      pako: 2.1.0
-      pino: 9.6.0
-      pino-pretty: 13.0.0
-      sha3: 2.1.4
-      zod: 3.24.1
-    transitivePeerDependencies:
-      - supports-color
 
   '@aztec/foundation@0.72.1':
     dependencies:
@@ -4730,10 +4684,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@aztec/l1-artifacts@0.71.0':
-    dependencies:
-      tslib: 2.8.1
-
   '@aztec/l1-artifacts@0.72.1':
     dependencies:
       tslib: 2.8.1
@@ -4746,17 +4696,6 @@ snapshots:
       lodash.chunk: 4.2.0
       lodash.omit: 4.5.0
       tslib: 2.8.1
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - supports-color
-      - typescript
-      - utf-8-validate
-
-  '@aztec/types@0.71.0(typescript@5.6.3)':
-    dependencies:
-      '@aztec/ethereum': 0.71.0(typescript@5.6.3)
-      '@aztec/foundation': 0.71.0
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -8619,20 +8558,6 @@ snapshots:
     transitivePeerDependencies:
       - zod
 
-  ox@0.6.5(typescript@5.6.3)(zod@3.24.1):
-    dependencies:
-      '@adraffy/ens-normalize': 1.11.0
-      '@noble/curves': 1.8.1
-      '@noble/hashes': 1.7.1
-      '@scure/bip32': 1.6.0
-      '@scure/bip39': 1.5.0
-      abitype: 1.0.7(typescript@5.6.3)(zod@3.24.1)
-      eventemitter3: 5.0.1
-    optionalDependencies:
-      typescript: 5.6.3
-    transitivePeerDependencies:
-      - zod
-
   p-limit@2.3.0:
     dependencies:
       p-try: 2.2.0
@@ -9626,23 +9551,6 @@ snapshots:
       convert-source-map: 2.0.0
 
   vary@1.1.2: {}
-
-  viem@2.22.11(typescript@5.6.3)(zod@3.24.1):
-    dependencies:
-      '@noble/curves': 1.7.0
-      '@noble/hashes': 1.6.1
-      '@scure/bip32': 1.6.0
-      '@scure/bip39': 1.5.0
-      abitype: 1.0.7(typescript@5.6.3)(zod@3.24.1)
-      isows: 1.0.6(ws@8.18.0)
-      ox: 0.6.5(typescript@5.6.3)(zod@3.24.1)
-      ws: 8.18.0
-    optionalDependencies:
-      typescript: 5.6.3
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-      - zod
 
   viem@2.22.8(typescript@5.6.3)(zod@3.24.1):
     dependencies:

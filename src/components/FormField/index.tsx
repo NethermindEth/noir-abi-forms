@@ -10,6 +10,8 @@ type BadgeVariant = 'public' | 'private' | 'internal' | 'static' | 'initializer'
 
 const FormField: React.FC<FormFieldProps> = ({
   functionArtifact,
+  onExecute,
+  contractService,
 }) => {
   const theme = useTheme();
 
@@ -20,7 +22,9 @@ const FormField: React.FC<FormFieldProps> = ({
     );
   };
 
-  const [values, setValues] = useState<unknown[][]>(functionArtifact.parameters.map((param) => getDefaultValue(param.type)));
+  const [values, setValues] = useState<unknown[][]>(
+    functionArtifact.parameters.map((param) => getDefaultValue(param.type))
+  );
 
   const handleParameterChange = (index: number, value: unknown[]) => {
     const newValues = [...values];
@@ -28,8 +32,19 @@ const FormField: React.FC<FormFieldProps> = ({
     setValues(newValues);
   };
 
-  const onExecute = (values: unknown[][]) => {
-    console.log(values.flat());
+  const handleExecute = async () => {
+    try {
+      if (functionArtifact.isInitializer) {
+        const result = await contractService.deploy(functionArtifact.name, values.flat());
+        onExecute?.(result);
+      } else {
+        const result = await contractService.call(functionArtifact.name, values.flat());
+        onExecute?.(result);
+      }
+    } catch (error) {
+      console.error('Error executing contract function:', error);
+      // Here you might want to add error handling UI
+    }
   };
 
   return (
@@ -51,7 +66,7 @@ const FormField: React.FC<FormFieldProps> = ({
           variant="default"
           size="sm"
           className={cn(theme.components.button.base, theme.components.button.primary)}
-          onClick={() => onExecute(values)}
+          onClick={handleExecute}
         >
           Execute {functionArtifact.name}
         </Button>

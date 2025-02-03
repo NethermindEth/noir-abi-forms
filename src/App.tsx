@@ -1,11 +1,23 @@
 import './App.css'
-import Label from './components/Label'
+import { Landing } from './pages/Landing'
 
 function App() {
   return (
-    <>
-      <Label content="Hello" color="bg-blue-500" />
-    </>
+    <div className="min-h-screen bg-background text-foreground">
+      <nav className="border-b border-border">
+        <div className="container mx-auto px-4 py-4">
+          <h1 className="text-xl font-bold">Noir Contract Explorer</h1>
+        </div>
+      </nav>
+      <main className="container mx-auto px-4 py-8">
+        <Landing />
+      </main>
+      <footer className="border-t border-border">
+        <div className="container mx-auto px-4 py-4 text-center text-sm text-muted-foreground">
+          Built with Aztec.js and Noir
+        </div>
+      </footer>
+    </div>
   )
 }
 
