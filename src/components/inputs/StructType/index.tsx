@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
-import { StructType } from '@aztec/foundation/abi';
-import TypeInput from '../TypeInput';
-import { getDefaultValue, minTypeLength } from '@/lib/utils';
+import React, { useState } from "react";
+import { StructType } from "@aztec/foundation/abi";
+import TypeInput from "../TypeInput";
+import { getDefaultValue, minTypeLength } from "@/lib/utils";
 
 interface StructTypeInputProps {
   functionArtifact: StructType;
   onChange?: (value: unknown[]) => void;
 }
 
-export const StructTypeInput: React.FC<StructTypeInputProps> = ({ functionArtifact, onChange }) => {
-  const [values, setValues] = useState<unknown[][]>(functionArtifact.fields.map((field) => Array(minTypeLength(field.type)).fill(getDefaultValue(field.type))));
+export const StructTypeInput: React.FC<StructTypeInputProps> = ({
+  functionArtifact,
+  onChange,
+}) => {
+  const [values, setValues] = useState<unknown[][]>(
+    functionArtifact.fields.map((field) =>
+      Array(minTypeLength(field.type)).fill(getDefaultValue(field.type)),
+    ),
+  );
 
   const handleFieldChange = (index: number, value: unknown[]) => {
     const newValues = [...values];

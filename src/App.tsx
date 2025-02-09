@@ -1,5 +1,5 @@
-import './App.css'
-import { Landing } from './pages/Landing'
+import "./App.css";
+import { Landing } from "./pages/Landing";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

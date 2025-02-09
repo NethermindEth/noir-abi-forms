@@ -25,12 +25,13 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@aztec/accounts": "^0.72.1",
-    "@aztec/aztec.js": "^0.72.1",
-    "@aztec/foundation": "^0.72.1",
-    "@aztec/types": "^0.72.1",
+    "@aztec/accounts": "^0.75.0",
+    "@aztec/aztec.js": "^0.75.0",
+    "@aztec/foundation": "^0.75.0",
+    "@aztec/types": "^0.75.0",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-toast": "^1.2.6",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@types/jest": "^29.5.14",

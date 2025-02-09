@@ -1,15 +1,15 @@
-import { 
-  Contract, 
-  Wallet, 
-  createPXEClient, 
-  waitForPXE, 
-  PXE, 
-  AztecAddress
-} from '@aztec/aztec.js';
-import { type ContractArtifact } from '@aztec/foundation/abi';
-import { getInitialTestAccountsWallets } from '@aztec/accounts/testing';
+import {
+  Contract,
+  Wallet,
+  createPXEClient,
+  waitForPXE,
+  PXE,
+  AztecAddress,
+} from "@aztec/aztec.js";
+import { type ContractArtifact } from "@aztec/foundation/abi";
+
 export type ContractExecutionResult = {
-  type: 'deploy' | 'call';
+  type: "deploy" | "call" | "simulate";
   contractAddress?: string;
   functionName: string;
   args: unknown[];
@@ -17,7 +17,6 @@ export type ContractExecutionResult = {
 };
 
 export class ContractService {
-  private contract: Contract | null = null;
   private contractArtifact: ContractArtifact | null = null;
   private pxe: PXE;
   private contractAddressAztec: AztecAddress | null = null;
@@ -26,7 +25,7 @@ export class ContractService {
     private wallet: Wallet,
     contractArtifact: ContractArtifact,
     contractAddress?: string,
-    pxeUrl: string = 'http://localhost:8080'
+    pxeUrl: string = "http://localhost:8080",
   ) {
     this.pxe = createPXEClient(pxeUrl);
     if (contractAddress) {
@@ -39,86 +38,54 @@ export class ContractService {
     await waitForPXE(this.pxe);
   }
 
-  private async initializeContract() {
-    if (!this.contractAddressAztec || !this.contractArtifact) {
-      throw new Error('Contract address or artifact is required');
-    }
-
-
-    this.contract = await Contract.at(
-      this.contractAddressAztec,
-      this.contractArtifact,
-      this.wallet
-    );
-  }
-
-  async deploy(functionName: string, args: unknown[]): Promise<ContractExecutionResult> {
-
-    const PXE_URL = 'http://localhost:8080';
-
-    console.log('Connecting to PXE...');
-
-    const pxe = createPXEClient(PXE_URL);
-    const { l1ChainId } = await pxe.getNodeInfo();
-
-    console.log(`Connected to chain ${l1ChainId}`);
-
-    const wallet = (await getInitialTestAccountsWallets(pxe))[0];
-
+  async deploy(
+    functionName: string,
+    args: unknown[],
+  ): Promise<ContractExecutionResult> {
     if (!this.contractArtifact) {
-      throw new Error('Contract artifact is required');
+      throw new Error("Contract artifact is required");
     }
 
-    console.log('Trying to deploy', functionName, 'with args', args);
-
-    for (const arg of args) {
-      console.log(typeof arg);
-    }
-
-    const contract = await Contract.deploy(wallet, this.contractArtifact, args, functionName)
+    const contract = await Contract.deploy(
+      this.wallet,
+      this.contractArtifact,
+      args,
+      functionName,
+    )
       .send()
       .deployed();
 
     // Update the current contract instance
-    this.contract = contract;
     this.contractAddressAztec = contract.address;
 
     return {
-      type: 'deploy',
+      type: "deploy",
       contractAddress: this.contractAddressAztec.toString(),
       functionName,
       args,
     };
   }
 
-  async call(functionName: string, args: unknown[]): Promise<ContractExecutionResult> {
+  async call(
+    functionName: string,
+    args: unknown[],
+  ): Promise<ContractExecutionResult> {
     if (!this.contractAddressAztec || !this.contractArtifact) {
-      throw new Error('Contract address or artifact is required');
+      throw new Error("Contract address or artifact is required");
     }
 
-    const PXE_URL = 'http://localhost:8080';
-
-    console.log('Connecting to PXE...');
-
-    const pxe = createPXEClient(PXE_URL);
-    const { l1ChainId } = await pxe.getNodeInfo();
-
-    console.log(`Connected to chain ${l1ChainId}`);
-
-    const wallet = (await getInitialTestAccountsWallets(pxe))[0];
-
-    if (!this.contractArtifact) {
-      throw new Error('Contract artifact is required');
-    }
-
-    const contract = await Contract.at(this.contractAddressAztec, this.contractArtifact, wallet);
+    const contract = await Contract.at(
+      this.contractAddressAztec,
+      this.contractArtifact,
+      this.wallet,
+    );
 
     const tx = await contract.methods[functionName](...args)
       .send()
       .wait();
 
     return {
-      type: 'call',
+      type: "call",
       contractAddress: contract.address.toString(),
       functionName,
       args,
@@ -126,10 +93,28 @@ export class ContractService {
     };
   }
 
-  async execute(functionName: string, args: unknown[]): Promise<ContractExecutionResult> {
-    if (functionName === 'constructor') {
-      return this.deploy(functionName, args);
+  async simulate(
+    functionName: string,
+    args: unknown[],
+  ): Promise<ContractExecutionResult> {
+    if (!this.contractAddressAztec || !this.contractArtifact) {
+      throw new Error("Contract address or artifact is required");
     }
-    return this.call(functionName, args);
+
+    const contract = await Contract.at(
+      this.contractAddressAztec,
+      this.contractArtifact,
+      this.wallet,
+    );
+
+    const tx = await contract.methods[functionName](...args).simulate();
+
+    return {
+      type: "simulate",
+      contractAddress: contract.address.toString(),
+      functionName,
+      args,
+      result: tx,
+    };
   }
 }

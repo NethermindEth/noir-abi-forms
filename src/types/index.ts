@@ -1,6 +1,13 @@
 import { NoirCompiledContract } from "@aztec/types/noir";
-import { FunctionAbi, ABIVariable } from "@aztec/foundation/abi";
-import { ContractService, ContractExecutionResult } from "@/services/ContractService";
+import {
+  FunctionAbi,
+  ABIVariable,
+  ContractArtifact,
+} from "@aztec/foundation/abi";
+import {
+  ContractService,
+  ContractExecutionResult,
+} from "@/services/ContractService";
 
 export interface FormFieldProps {
   functionArtifact: FunctionAbi;
@@ -11,7 +18,6 @@ export interface FormFieldProps {
 
 export interface NoirFormProps {
   abi: NoirCompiledContract;
-  skipValidation?: boolean;
   onSubmit: (data: ContractExecutionResult) => void;
   contractService: ContractService;
 }

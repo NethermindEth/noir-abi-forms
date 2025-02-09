@@ -1,5 +1,5 @@
-import React, { createContext, useContext } from 'react';
-import { Theme, defaultTheme } from '../styles/theme';
+import React, { createContext, useContext } from "react";
+import { Theme, defaultTheme } from "../styles/theme";
 
 const ThemeContext = createContext<Theme>(defaultTheme);
 
@@ -8,7 +8,10 @@ export interface ThemeProviderProps {
   children: React.ReactNode;
 }
 
-export function ThemeProvider({ theme = defaultTheme, children }: ThemeProviderProps) {
+export function ThemeProvider({
+  theme = defaultTheme,
+  children,
+}: ThemeProviderProps) {
   return (
     <ThemeContext.Provider value={{ ...defaultTheme, ...theme }}>
       {children}
@@ -22,8 +25,5 @@ export function useTheme() {
 
 // Helper function to combine class names with theme styles
 export function getStyles(themeClasses: string[], additionalClasses?: string) {
-  return [
-    ...themeClasses,
-    additionalClasses,
-  ].filter(Boolean).join(' ');
-} 
+  return [...themeClasses, additionalClasses].filter(Boolean).join(" ");
+}

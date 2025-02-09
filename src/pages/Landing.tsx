@@ -1,21 +1,30 @@
-import { useState } from 'react';
-import { 
-  createPXEClient, 
-  waitForPXE,
+import { useState } from "react";
+import {
+  createPXEClient,
   AccountWallet,
-  loadContractArtifact
-} from '@aztec/aztec.js';
-import { ContractArtifact } from '@aztec/foundation/abi';
-import { ContractService, ContractExecutionResult } from '../services/ContractService';
-import { FormContent } from '../components/Form';
-import { Button } from '../components/ui/button';
+  loadContractArtifact,
+} from "@aztec/aztec.js";
+import { ContractArtifact } from "@aztec/foundation/abi";
+import {
+  ContractService,
+  ContractExecutionResult,
+} from "../services/ContractService";
+import { FormContent } from "../components/Form";
+import { Button } from "../components/ui/button";
+import { getInitialTestAccountsWallets } from "@aztec/accounts/testing";
+
+const PXE_URL = "http://localhost:8080";
 
 export const Landing = () => {
-  const [contractAddress, setContractAddress] = useState('');
-  const [contractArtifact, setContractArtifact] = useState<ContractArtifact | null>(null);
-  const [selectedWallet, setSelectedWallet] = useState<AccountWallet | null>(null);
+  const [contractAddress, setContractAddress] = useState("");
+  const [contractArtifact, setContractArtifact] =
+    useState<ContractArtifact | null>(null);
+  const [selectedWallet, setSelectedWallet] = useState<AccountWallet | null>(
+    null,
+  );
   const [wallets, setWallets] = useState<AccountWallet[]>([]);
-  const [contractService, setContractService] = useState<ContractService | null>(null);
+  const [contractService, setContractService] =
+    useState<ContractService | null>(null);
   const [isConnecting, setIsConnecting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,29 +33,14 @@ export const Landing = () => {
       setIsConnecting(true);
       setError(null);
 
-      // Create PXE client
-      const pxeClient = createPXEClient('http://localhost:8080');
-      await waitForPXE(pxeClient);
+      const pxe = createPXEClient(PXE_URL);
+      const wallets = await getInitialTestAccountsWallets(pxe);
 
-      // Get registered accounts
-      const accounts = await pxeClient.getRegisteredAccounts();
-      console.log('Found accounts:', accounts);
-
-      // For now, we'll just use the first account
-      if (accounts.length > 0) {
-        const wallet = {
-          getAddress: () => accounts[0],
-          pxe: pxeClient
-        } as unknown as AccountWallet;
-
-        setWallets([wallet]);
-        setSelectedWallet(wallet);
-      } else {
-        setError('No accounts available in the sandbox');
-      }
+      setWallets(wallets);
+      setSelectedWallet(wallets[0]);
     } catch (error) {
-      console.error('Sandbox connection error:', error);
-      setError('Failed to connect to sandbox: ' + (error as Error).message);
+      console.error("Sandbox connection error:", error);
+      setError("Failed to connect to sandbox: " + (error as Error).message);
     } finally {
       setIsConnecting(false);
     }
@@ -54,7 +48,7 @@ export const Landing = () => {
 
   const handleContractConnection = async () => {
     if (!selectedWallet || !contractArtifact) {
-      setError('Please provide the contract ABI');
+      setError("Please provide the contract ABI");
       return;
     }
 
@@ -63,14 +57,14 @@ export const Landing = () => {
         selectedWallet,
         contractArtifact,
         contractAddress,
-        'http://localhost:8080'
+        "http://localhost:8080",
       );
       await service.init();
       setContractService(service);
       setError(null);
     } catch (error) {
-      console.error('Contract connection error:', error);
-      setError('Failed to connect to contract: ' + (error as Error).message);
+      console.error("Contract connection error:", error);
+      setError("Failed to connect to contract: " + (error as Error).message);
     }
   };
 
@@ -85,8 +79,8 @@ export const Landing = () => {
         const contractArtifact = loadContractArtifact(content);
         setContractArtifact(contractArtifact);
       } catch (error) {
-        console.error('File parsing error:', error);
-        setError('Invalid contract artifact file');
+        console.error("File parsing error:", error);
+        setError("Invalid contract artifact file");
       }
     };
     reader.readAsText(file);
@@ -98,21 +92,25 @@ export const Landing = () => {
       <section className="p-6 border rounded-lg bg-card">
         <h2 className="text-xl font-semibold mb-4">Sandbox Connection</h2>
         <div className="space-y-4">
-          <Button 
+          <Button
             onClick={connectToSandbox}
             disabled={isConnecting}
             className="w-full"
           >
-            {isConnecting ? 'Connecting...' : 'Connect to Sandbox'}
+            {isConnecting ? "Connecting..." : "Connect to Sandbox"}
           </Button>
 
           {wallets.length > 0 && (
             <div className="space-y-2">
-              <label className="block text-sm font-medium">Select Account:</label>
+              <label className="block text-sm font-medium">
+                Select Account:
+              </label>
               <select
                 className="w-full p-2 border rounded bg-background"
                 value={wallets.indexOf(selectedWallet!)}
-                onChange={(e) => setSelectedWallet(wallets[parseInt(e.target.value)])}
+                onChange={(e) =>
+                  setSelectedWallet(wallets[parseInt(e.target.value)])
+                }
               >
                 {wallets.map((wallet, index) => (
                   <option key={index} value={index}>
@@ -130,7 +128,9 @@ export const Landing = () => {
         <h2 className="text-xl font-semibold mb-4">Contract Connection</h2>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Contract Address (Optional):</label>
+            <label className="block text-sm font-medium mb-1">
+              Contract Address (Optional):
+            </label>
             <input
               type="text"
               className="w-full p-2 border rounded bg-background"
@@ -141,7 +141,9 @@ export const Landing = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Contract ABI:</label>
+            <label className="block text-sm font-medium mb-1">
+              Contract ABI:
+            </label>
             <input
               type="file"
               accept=".json"
@@ -155,7 +157,7 @@ export const Landing = () => {
             disabled={!selectedWallet || !contractArtifact}
             className="w-full"
           >
-            {contractAddress ? 'Connect to Contract' : 'Initialize Contract'}
+            {contractAddress ? "Connect to Contract" : "Initialize Contract"}
           </Button>
         </div>
       </section>
@@ -175,19 +177,17 @@ export const Landing = () => {
             abi={contractArtifact}
             onSubmit={async (data: ContractExecutionResult) => {
               try {
-                const result = await contractService.execute(
-                  data.functionName,
-                  data.args
-                );
-                console.log('Execution result:', result);
-
-                // If this was a deployment, update the contract address
-                if (data.type === 'deploy' && result.contractAddress) {
-                  setContractAddress(result.contractAddress);
+                if (data.type === "deploy" && data.contractAddress) {
+                  setContractAddress(data.contractAddress);
                 }
+
+                console.log("Execution result:", data);
               } catch (error) {
-                console.error('Contract execution error:', error);
-                setError('Failed to execute contract function: ' + (error as Error).message);
+                console.error("Contract execution error:", error);
+                setError(
+                  "Failed to execute contract function: " +
+                    (error as Error).message,
+                );
               }
             }}
             contractService={contractService}
@@ -196,4 +196,4 @@ export const Landing = () => {
       )}
     </div>
   );
-}; 
+};

@@ -1,5 +1,5 @@
-import { Theme, defaultTheme } from './theme';
-import { cyberpunkTheme, retroTheme } from './alternativeTheme';
+import { Theme, defaultTheme } from "./theme";
+import { cyberpunkTheme, retroTheme } from "./alternativeTheme";
 
 export type { Theme };
 export { defaultTheme, cyberpunkTheme, retroTheme };
@@ -18,4 +18,4 @@ export function createTheme(customTheme: Partial<Theme>): Theme {
       ...customTheme.components,
     },
   };
-} 
+}
