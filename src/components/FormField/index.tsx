@@ -5,6 +5,7 @@ import { cn, getDefaultValue } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import TypeInput from "../inputs/TypeInput";
 import { useTheme } from "@/context/ThemeContext";
+import { Loader2 } from "lucide-react";
 
 type BadgeVariant =
   | "public"
@@ -13,12 +14,24 @@ type BadgeVariant =
   | "static"
   | "initializer";
 
+const customJSONReplacer = (key: string, value: unknown) => {
+  if (typeof value === 'bigint') {
+    return value.toString();
+  }
+  return value;
+};
+
 const FormField: React.FC<FormFieldProps> = ({
   functionArtifact,
   onExecute,
   contractService,
 }) => {
   const theme = useTheme();
+
+  const [executing, setExecuting] = useState(false);
+  const [simulating, setSimulating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<string | null>(null);
 
   const getBadgeClasses = (type: BadgeVariant) => {
     return cn(
@@ -40,27 +53,46 @@ const FormField: React.FC<FormFieldProps> = ({
   const handleExecute = async (simulate: boolean = false) => {
     try {
       if (simulate) {
+        setSimulating(true);
         const result = await contractService.simulate(
           functionArtifact.name,
           values.flat(),
         );
         onExecute?.(result);
+        setSimulating(false);
+        setError(null);
+        setResult(JSON.stringify(result, customJSONReplacer, 2));
       } else if (functionArtifact.isInitializer) {
+        setExecuting(true);
         const result = await contractService.deploy(
           functionArtifact.name,
           values.flat(),
         );
         onExecute?.(result);
+        setExecuting(false);
+        setError(null);
+        setResult(JSON.stringify(result, customJSONReplacer, 2));
       } else {
+        setExecuting(true);
         const result = await contractService.call(
           functionArtifact.name,
           values.flat(),
         );
         onExecute?.(result);
+        setExecuting(false);
+        setError(null);
+        setResult(JSON.stringify(result, customJSONReplacer, 2));
       }
     } catch (error) {
       console.error("Error executing contract function:", error);
-      // Here you might want to add error handling UI
+      setError(
+        error instanceof Error ? error.message : "An unknown error occurred",
+      );
+      if (simulate) {
+        setSimulating(false);
+      } else {
+        setExecuting(false);
+      }
     }
   };
 
@@ -96,8 +128,18 @@ const FormField: React.FC<FormFieldProps> = ({
               theme.components.button.primary,
             )}
             onClick={() => handleExecute(false)}
+            disabled={executing || simulating}
           >
-            Execute
+            {executing ? (
+              <>
+                <label className={cn(theme.colors.text.accent, "mr-2")}>
+                  Executing
+                </label>{" "}
+                <Loader2 className="w-4 h-4 animate-spin" />
+              </>
+            ) : (
+              "Execute"
+            )}
           </Button>
 
           <Button
@@ -109,8 +151,18 @@ const FormField: React.FC<FormFieldProps> = ({
               theme.components.button.primary,
             )}
             onClick={() => handleExecute(true)}
+            disabled={executing || simulating}
           >
-            Simulate
+            {simulating ? (
+              <>
+                <label className={cn(theme.colors.text.accent, "mr-2")}>
+                  Simulating
+                </label>{" "}
+                <Loader2 className="w-4 h-4 animate-spin" />
+              </>
+            ) : (
+              "Simulate"
+            )}
           </Button>
         </div>
       </div>
@@ -155,6 +207,26 @@ const FormField: React.FC<FormFieldProps> = ({
             </div>
           ))}
       </div>
+      {error && (
+        <div
+          className={cn(
+            theme.components.error.container,
+            theme.colors.text.error,
+          )}
+        >
+          {error}
+        </div>
+      )}
+      {result && (
+        <div className={cn(theme.components.result.container)}>
+          <div className={cn("flex items-center", theme.spacing.smallGap, "mb-2")}>
+            <span className={cn(theme.typography.font.mono, theme.colors.text.accent)}>
+              [result]
+            </span>
+          </div>
+          <pre className={cn(theme.colors.text.secondary)}>{result}</pre>
+        </div>
+      )}
     </div>
   );
 };

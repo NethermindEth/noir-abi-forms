@@ -14,6 +14,10 @@ export interface FormFieldProps {
   onExecute?: (data: ContractExecutionResult) => void;
   contractService: ContractService;
   contractArtifact: ContractArtifact;
+  options?: {
+    showResult?: boolean;
+    showError?: boolean;
+  };
 }
 
 export interface NoirFormProps {

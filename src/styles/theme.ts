@@ -71,6 +71,12 @@ export interface Theme {
       active: string;
       knob: string;
     };
+    error: {
+      container: string;
+    };
+    result: {
+      container: string;
+    };
   };
 
   effects: {
@@ -170,6 +176,23 @@ export const defaultTheme: Theme = {
       base: "w-11 h-6 bg-gray-700",
       active: "peer-checked:bg-purple-500",
       knob: "after:bg-white after:border-gray-300",
+    },
+
+    error: {
+      container: "bg-red-500/10 p-4 rounded-lg",
+    },
+
+    result: {
+      container: [
+        "mt-4 p-4",
+        "bg-gray-800/50",
+        "border border-gray-700",
+        "rounded-lg",
+        "font-mono text-sm",
+        "overflow-x-auto whitespace-pre text-left",
+        "shadow-inner",
+        "hover:border-gray-600 transition-colors",
+      ].join(" "),
     },
   },
 

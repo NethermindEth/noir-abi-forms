@@ -14,7 +14,6 @@ export function FormContent({
   contractService: NoirFormProps["contractService"];
 }) {
   useEffect(() => {
-    // Initialize the contract service
     contractService.init().catch(console.error);
   }, [contractService]);
 

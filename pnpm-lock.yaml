@@ -71,6 +71,9 @@ importers:
       lint-staged:
         specifier: ^15.4.1
         version: 15.4.3
+      lucide-react:
+        specifier: ^0.475.0
+        version: 0.475.0(react@18.3.1)
       postcss:
         specifier: ^8.5.1
         version: 8.5.1
@@ -86,6 +89,12 @@ importers:
       react-hook-form:
         specifier: ^7.54.2
         version: 7.54.2(react@18.3.1)
+      react-json-view-lite:
+        specifier: ^2.3.0
+        version: 2.3.0(react@18.3.1)
+      sonner:
+        specifier: ^1.7.4
+        version: 1.7.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
@@ -3294,6 +3303,11 @@ packages:
   ltgt@2.2.1:
     resolution: {integrity: sha512-AI2r85+4MquTw9ZYqabu4nMwy9Oftlfa/e/52t9IjtfG+mGBbTNdAoZ3RQKLHR6r0wQnwZnPIEh/Ya6XTWAKNA==}
 
+  lucide-react@0.475.0:
+    resolution: {integrity: sha512-NJzvVu1HwFVeZ+Gwq2q00KygM1aBhy/ZrhY9FsAgJtpB+E4R7uxRk9M2iKvHa6/vNxZydIB59htha4c2vvwvVg==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
     hasBin: true
@@ -3862,6 +3876,12 @@ packages:
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
 
+  react-json-view-lite@2.3.0:
+    resolution: {integrity: sha512-btGE+nynBIPRPLWMkE7ASOeF7QzzG6S3bTOTL0FLFNvprMsODmv8eUMFCUK9SOJqV8GCOW/avCpDJnMSchTafQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+
   react-refresh@0.14.2:
     resolution: {integrity: sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==}
     engines: {node: '>=0.10.0'}
@@ -4083,6 +4103,12 @@ packages:
 
   sonic-boom@4.2.0:
     resolution: {integrity: sha512-INb7TM37/mAcsGmc9hyyI6+QR3rR1zVRu36B0NeGXKnOOLiZOfER5SA+N7X7k3yUYRzLWafduTDvJAfDswwEww==}
+
+  sonner@1.7.4:
+    resolution: {integrity: sha512-DIS8z4PfJRbIyfVFDVnK9rO3eYDtse4Omcm6bt0oEr5/jtLgysmjuBl1frJ9E/EQZrFmKx2A8m/s5s9CRXIzhw==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+      react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -8410,6 +8436,10 @@ snapshots:
 
   ltgt@2.2.1: {}
 
+  lucide-react@0.475.0(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+
   lz-string@1.5.0: {}
 
   magic-string@0.27.0:
@@ -9012,6 +9042,10 @@ snapshots:
 
   react-is@18.3.1: {}
 
+  react-json-view-lite@2.3.0(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+
   react-refresh@0.14.2: {}
 
   react@18.3.1:
@@ -9281,6 +9315,11 @@ snapshots:
   sonic-boom@4.2.0:
     dependencies:
       atomic-sleep: 1.0.0
+
+  sonner@1.7.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   source-map-js@1.2.1: {}
 
