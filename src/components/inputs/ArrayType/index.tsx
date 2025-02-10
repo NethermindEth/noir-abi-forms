@@ -1,9 +1,9 @@
-import React, { useMemo, useState } from 'react';
-import { ArrayType } from '@aztec/foundation/abi';
-import TypeInput from '../TypeInput';
-import { Button } from '@/components/ui/button';
-import { useTheme } from '@/context/ThemeContext';
-import { cn, getDefaultValue } from '@/lib/utils';
+import React, { useMemo, useState } from "react";
+import { ArrayType } from "@aztec/foundation/abi";
+import TypeInput from "../TypeInput";
+import { Button } from "@/components/ui/button";
+import { useTheme } from "@/context/ThemeContext";
+import { cn, getDefaultValue } from "@/lib/utils";
 
 const MAX_VISIBLE_ELEMENTS = 7;
 
@@ -12,8 +12,17 @@ interface ArrayTypeInputProps {
   onChange?: (value: unknown[]) => void;
 }
 
-export const ArrayTypeInput: React.FC<ArrayTypeInputProps> = ({ functionArtifact, onChange }) => {
-  const [elements, setElements] = useState<unknown[][]>(functionArtifact.length ? Array(functionArtifact.length).fill(getDefaultValue(functionArtifact.type)) : []);
+export const ArrayTypeInput: React.FC<ArrayTypeInputProps> = ({
+  functionArtifact,
+  onChange,
+}) => {
+  const [elements, setElements] = useState<unknown[][]>(
+    functionArtifact.length
+      ? Array(functionArtifact.length).fill(
+          getDefaultValue(functionArtifact.type),
+        )
+      : [],
+  );
   const [isExpanded, setIsExpanded] = useState(false);
   const theme = useTheme();
 
@@ -24,7 +33,10 @@ export const ArrayTypeInput: React.FC<ArrayTypeInputProps> = ({ functionArtifact
     onChange?.(newElements.flat());
   };
 
-  const isInfinite = functionArtifact.length === null || functionArtifact.length === undefined || functionArtifact.length === 0;
+  const isInfinite =
+    functionArtifact.length === null ||
+    functionArtifact.length === undefined ||
+    functionArtifact.length === 0;
 
   const canAdd = useMemo(() => {
     return isInfinite ? true : elements.length < functionArtifact.length;
@@ -43,14 +55,16 @@ export const ArrayTypeInput: React.FC<ArrayTypeInputProps> = ({ functionArtifact
     onChange?.(newElements.flat());
   };
 
-  const visibleElements = isExpanded ? elements : elements.slice(0, MAX_VISIBLE_ELEMENTS);
+  const visibleElements = isExpanded
+    ? elements
+    : elements.slice(0, MAX_VISIBLE_ELEMENTS);
   const hasHiddenElements = elements.length > MAX_VISIBLE_ELEMENTS;
 
   return (
     <div className="flex flex-col gap-4 p-4 rounded-lg bg-gray-800/50 border border-gray-700">
       <div className="flex items-center justify-between">
         <span className="text-sm font-medium text-gray-300 font-mono">
-          array[{functionArtifact.length ?? '*'}]
+          array[{functionArtifact.length ?? "*"}]
         </span>
         <div className="flex gap-2">
           {hasHiddenElements && (
@@ -61,10 +75,10 @@ export const ArrayTypeInput: React.FC<ArrayTypeInputProps> = ({ functionArtifact
               size="sm"
               className={cn(
                 "font-mono text-xs",
-                theme.components.button.outline
+                theme.components.button.outline,
               )}
             >
-              {isExpanded ? 'Show Less' : `Show All (${elements.length})`}
+              {isExpanded ? "Show Less" : `Show All (${elements.length})`}
             </Button>
           )}
           <Button
@@ -73,10 +87,7 @@ export const ArrayTypeInput: React.FC<ArrayTypeInputProps> = ({ functionArtifact
             variant="outline"
             size="sm"
             disabled={!canAdd}
-            className={cn(
-              "font-mono text-xs",
-              theme.components.button.outline
-            )}
+            className={cn("font-mono text-xs", theme.components.button.outline)}
           >
             + Add Element
           </Button>
@@ -98,7 +109,7 @@ export const ArrayTypeInput: React.FC<ArrayTypeInputProps> = ({ functionArtifact
               <TypeInput
                 functionArtifact={{
                   name: `[${index}]`,
-                  type: functionArtifact.type
+                  type: functionArtifact.type,
                 }}
                 onChange={(value) => handleElementChange(index, value)}
               />
@@ -107,19 +118,28 @@ export const ArrayTypeInput: React.FC<ArrayTypeInputProps> = ({ functionArtifact
         ))}
 
         {!isExpanded && hasHiddenElements && (
-          <div className={cn(
-            'text-center py-2 border border-dashed rounded-md cursor-pointer',
-            theme.colors.border.default,
-            theme.colors.text.secondary,
-            theme.colors.bg.hover
-          )} onClick={() => setIsExpanded(true)}>
+          <div
+            className={cn(
+              "text-center py-2 border border-dashed rounded-md cursor-pointer",
+              theme.colors.border.default,
+              theme.colors.text.secondary,
+              theme.colors.bg.hover,
+            )}
+            onClick={() => setIsExpanded(true)}
+          >
             {elements.length - MAX_VISIBLE_ELEMENTS} more elements...
           </div>
         )}
       </div>
 
       {!canAdd && (
-        <p className={cn('text-xs', theme.colors.text.warning, theme.typography.font.mono)}>
+        <p
+          className={cn(
+            "text-xs",
+            theme.colors.text.warning,
+            theme.typography.font.mono,
+          )}
+        >
           Maximum length ({functionArtifact.length}) reached
         </p>
       )}

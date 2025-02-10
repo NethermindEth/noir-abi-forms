@@ -1,4 +1,9 @@
-import { AbiType, ArrayType, StructType, TupleType } from '@aztec/foundation/abi';
+import {
+  AbiType,
+  ArrayType,
+  StructType,
+  TupleType,
+} from "@aztec/foundation/abi";
 
 export type FormValue = unknown | Record<string, unknown>;
 
@@ -11,7 +16,7 @@ class ArrayCompiler implements FormDataCompiler {
 
   compile(data: FormValue): unknown[] {
     if (!Array.isArray(data)) return [];
-    return data.filter(item => item !== null);
+    return data.filter((item) => item !== null);
   }
 }
 
@@ -19,7 +24,7 @@ class StructCompiler implements FormDataCompiler {
   constructor(private type: StructType) {}
 
   compile(data: FormValue): Record<string, unknown> {
-    if (typeof data !== 'object' || data === null) return {};
+    if (typeof data !== "object" || data === null) return {};
     const result: Record<string, unknown> = {};
     for (const field of this.type.fields) {
       const value = (data as Record<string, unknown>)[field.name];
@@ -35,7 +40,7 @@ class TupleCompiler implements FormDataCompiler {
   constructor(private type: TupleType) {}
 
   compile(data: FormValue): unknown[] {
-    if (typeof data !== 'object' || data === null) return [];
+    if (typeof data !== "object" || data === null) return [];
     return this.type.fields.map((field, index) => {
       const value = (data as Record<string | number, unknown>)[index];
       return value !== undefined && value !== null
@@ -53,11 +58,11 @@ class BasicCompiler implements FormDataCompiler {
 
 export function createCompiler(type: AbiType): FormDataCompiler {
   switch (type.kind) {
-    case 'array':
+    case "array":
       return new ArrayCompiler(type);
-    case 'struct':
+    case "struct":
       return new StructCompiler(type);
-    case 'tuple':
+    case "tuple":
       return new TupleCompiler(type);
     default:
       return new BasicCompiler();
@@ -69,9 +74,13 @@ export function compileFormData(type: AbiType, value: FormValue): unknown {
   return compiler.compile(value);
 }
 
-export function compileFormFunction(name: string, parameters: { name: string; type: AbiType }[], values: Record<string, unknown>): Record<string, unknown> {
+export function compileFormFunction(
+  name: string,
+  parameters: { name: string; type: AbiType }[],
+  values: Record<string, unknown>,
+): Record<string, unknown> {
   const result: Record<string, unknown> = {};
-  
+
   for (const param of parameters) {
     const value = values[param.name];
     if (value !== undefined && value !== null) {
@@ -80,6 +89,6 @@ export function compileFormFunction(name: string, parameters: { name: string; ty
   }
 
   return {
-    [name]: result
+    [name]: result,
   };
-} 
+}

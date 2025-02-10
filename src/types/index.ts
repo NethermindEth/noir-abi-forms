@@ -1,15 +1,29 @@
 import { NoirCompiledContract } from "@aztec/types/noir";
-import { FunctionAbi, ABIVariable } from "@aztec/foundation/abi";
+import {
+  FunctionAbi,
+  ABIVariable,
+  ContractArtifact,
+} from "@aztec/foundation/abi";
+import {
+  ContractService,
+  ContractExecutionResult,
+} from "@/services/ContractService";
 
 export interface FormFieldProps {
   functionArtifact: FunctionAbi;
-  onExecute?: (data: Record<string, unknown>) => void;
+  onExecute?: (data: ContractExecutionResult) => void;
+  contractService: ContractService;
+  contractArtifact: ContractArtifact;
+  options?: {
+    showResult?: boolean;
+    showError?: boolean;
+  };
 }
 
 export interface NoirFormProps {
   abi: NoirCompiledContract;
-  skipValidation?: boolean;
-  onSubmit: (data: Record<string, unknown>) => void;
+  onSubmit: (data: ContractExecutionResult) => void;
+  contractService: ContractService;
 }
 
 export interface AbiVariableInputProps {

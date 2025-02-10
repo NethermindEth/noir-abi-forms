@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import { StringType } from '@aztec/foundation/abi';
+import React, { useState } from "react";
+import { StringType } from "@aztec/foundation/abi";
 
 interface StringTypeInputProps {
   functionArtifact: StringType;
   onChange?: (value: unknown[]) => void;
 }
 
-export const StringTypeInput: React.FC<StringTypeInputProps> = ({ functionArtifact, onChange }) => {
+export const StringTypeInput: React.FC<StringTypeInputProps> = ({
+  functionArtifact,
+  onChange,
+}) => {
   const [error, setError] = useState<string | null>(null);
 
   const validateInput = (value: string) => {
@@ -29,9 +32,7 @@ export const StringTypeInput: React.FC<StringTypeInputProps> = ({ functionArtifa
         placeholder="Enter text"
         className="block w-full rounded-md border-gray-600 bg-gray-800 p-2 text-white placeholder-gray-400 focus:border-purple-500 focus:ring-purple-500 sm:text-sm font-mono"
       />
-      {error && (
-        <p className="mt-1 text-sm text-red-400 font-mono">{error}</p>
-      )}
+      {error && <p className="mt-1 text-sm text-red-400 font-mono">{error}</p>}
     </div>
   );
 };

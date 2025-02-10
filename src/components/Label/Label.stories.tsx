@@ -1,31 +1,31 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Label from '.';
+import type { Meta, StoryObj } from "@storybook/react";
+import Label from ".";
 
 const meta: Meta<typeof Label> = {
-  title: 'Components/Label',
+  title: "Components/Label",
   component: Label,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     content: {
-      control: 'text',
-      description: 'The text content of the label',
+      control: "text",
+      description: "The text content of the label",
     },
     className: {
-      control: 'select',
+      control: "select",
       options: [
         // Function Tags
-        'bg-function-public-bg text-function-public-text',
-        'bg-function-private-bg text-function-private-text',
-        'bg-function-internal-bg text-function-internal-text',
-        'bg-function-external-bg text-function-external-text',
+        "bg-function-public-bg text-function-public-text",
+        "bg-function-private-bg text-function-private-text",
+        "bg-function-internal-bg text-function-internal-text",
+        "bg-function-external-bg text-function-external-text",
         // Mutability Tags
-        'bg-mutability-bg text-mutability-text',
+        "bg-mutability-bg text-mutability-text",
         // Action Colors
-        'bg-action-primary text-text-primary',
-        'bg-action-danger text-text-primary',
+        "bg-action-primary text-text-primary",
+        "bg-action-danger text-text-primary",
       ],
     },
   },
@@ -36,51 +36,69 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    content: 'documentation',
+    content: "documentation",
   },
 };
 
 export const Bug: Story = {
   args: {
-    content: 'bug',
-    className: 'bg-function-private-bg text-function-private-text',
+    content: "bug",
+    className: "bg-function-private-bg text-function-private-text",
   },
 };
 
 export const Enhancement: Story = {
   args: {
-    content: 'enhancement',
-    className: 'bg-function-external-bg text-function-external-text',
+    content: "enhancement",
+    className: "bg-function-external-bg text-function-external-text",
   },
 };
 
 export const GoodFirstIssue: Story = {
   args: {
-    content: 'good first issue',
-    className: 'bg-function-public-bg text-function-public-text',
+    content: "good first issue",
+    className: "bg-function-public-bg text-function-public-text",
   },
 };
 
 export const Help: Story = {
   args: {
-    content: 'help wanted',
-    className: 'bg-mutability-bg text-mutability-text',
+    content: "help wanted",
+    className: "bg-mutability-bg text-mutability-text",
   },
 };
 
 export const Multiple: Story = {
   args: {
-    content: 'documentation',
+    content: "documentation",
   },
   decorators: [
     () => (
       <div className="flex gap-2 flex-wrap">
-        <Label content="bug" className="bg-function-private-bg text-function-private-text" />
-        <Label content="enhancement" className="bg-function-external-bg text-function-external-text" />
-        <Label content="documentation" className="bg-function-internal-bg text-function-internal-text" />
-        <Label content="good first issue" className="bg-function-public-bg text-function-public-text" />
-        <Label content="help wanted" className="bg-mutability-bg text-mutability-text" />
-        <Label content="in progress" className="bg-action-primary text-text-primary" />
+        <Label
+          content="bug"
+          className="bg-function-private-bg text-function-private-text"
+        />
+        <Label
+          content="enhancement"
+          className="bg-function-external-bg text-function-external-text"
+        />
+        <Label
+          content="documentation"
+          className="bg-function-internal-bg text-function-internal-text"
+        />
+        <Label
+          content="good first issue"
+          className="bg-function-public-bg text-function-public-text"
+        />
+        <Label
+          content="help wanted"
+          className="bg-mutability-bg text-mutability-text"
+        />
+        <Label
+          content="in progress"
+          className="bg-action-primary text-text-primary"
+        />
       </div>
     ),
   ],
