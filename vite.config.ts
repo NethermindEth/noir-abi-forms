@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import dts from 'vite-plugin-dts'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
+import fs from 'fs'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -18,6 +19,19 @@ export default defineConfig(({ mode }) => ({
         process: true,
       },
     }),
+    {
+      name: 'copy-barretenberg',
+      buildStart() {
+        const barretenbergPath = path.resolve(__dirname, 'node_modules/@aztec/aztec.js/barretenberg/barretenberg.js');
+        if (fs.existsSync(barretenbergPath)) {
+          this.emitFile({
+            type: 'asset',
+            fileName: 'assets/barretenberg.js',
+            source: fs.readFileSync(barretenbergPath, 'utf-8')
+          });
+        }
+      }
+    }
   ],
   build: mode === 'lib' ? {
     lib: {
@@ -40,19 +54,10 @@ export default defineConfig(({ mode }) => ({
     outDir: 'dist',
     sourcemap: true,
     rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'index.html'),
-        barretenberg: path.resolve(__dirname, 'node_modules/@aztec/aztec.js/barretenberg/barretenberg.js'),
-      },
       output: {
         manualChunks: undefined,
-        assetFileNames: 'assets/[name].[hash].[ext]',
         chunkFileNames: 'assets/[name].[hash].js',
-        entryFileNames: (chunkInfo) => {
-          return chunkInfo.name === 'barretenberg' 
-            ? 'assets/[name].js'
-            : 'assets/[name].[hash].js';
-        },
+        entryFileNames: 'assets/[name].[hash].js',
       },
     },
   },
@@ -68,5 +73,4 @@ export default defineConfig(({ mode }) => ({
     },
     include: ['path-browserify'],
   },
-  publicDir: path.resolve(__dirname, 'node_modules/@aztec/aztec.js/barretenberg/'),
 }))
