@@ -42,7 +42,12 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: undefined,
-        assetFileNames: 'assets/[name].[hash].[ext]',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === 'barretenberg.js') {
+            return 'assets/[name][extname]';
+          }
+          return 'assets/[name].[hash].[ext]';
+        },
         chunkFileNames: 'assets/[name].[hash].js',
         entryFileNames: 'assets/[name].[hash].js',
       },
@@ -60,4 +65,5 @@ export default defineConfig(({ mode }) => ({
     },
     include: ['path-browserify'],
   },
+  publicDir: path.resolve(__dirname, 'node_modules/@aztec/aztec.js/barretenberg/'),
 }))
