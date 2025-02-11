@@ -40,16 +40,19 @@ export default defineConfig(({ mode }) => ({
     outDir: 'dist',
     sourcemap: true,
     rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        barretenberg: path.resolve(__dirname, 'node_modules/@aztec/aztec.js/barretenberg/barretenberg.js'),
+      },
       output: {
         manualChunks: undefined,
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'barretenberg.js') {
-            return 'assets/[name][extname]';
-          }
-          return 'assets/[name].[hash].[ext]';
-        },
+        assetFileNames: 'assets/[name].[hash].[ext]',
         chunkFileNames: 'assets/[name].[hash].js',
-        entryFileNames: 'assets/[name].[hash].js',
+        entryFileNames: (chunkInfo) => {
+          return chunkInfo.name === 'barretenberg' 
+            ? 'assets/[name].js'
+            : 'assets/[name].[hash].js';
+        },
       },
     },
   },
