@@ -16,7 +16,14 @@ export type ContractExecutionResult = {
   result?: unknown;
 };
 
-export class ContractService {
+export interface ContractService {
+  init(): Promise<void>;
+  deploy(functionName: string, args: unknown[]): Promise<ContractExecutionResult>;
+  call(functionName: string, args: unknown[]): Promise<ContractExecutionResult>;
+  simulate(functionName: string, args: unknown[]): Promise<ContractExecutionResult>;
+}
+
+export class DefaultContractService implements ContractService {
   private contractArtifact: ContractArtifact | null = null;
   private pxe: PXE;
   private contractAddressAztec: AztecAddress | null = null;
@@ -71,7 +78,7 @@ export class ContractService {
     args: unknown[],
   ): Promise<ContractExecutionResult> {
     if (!this.contractAddressAztec || !this.contractArtifact) {
-      throw new Error("Contract address or artifact is required");
+      throw new Error("Contract address and artifact is required");
     }
 
     const contract = await Contract.at(
@@ -98,7 +105,7 @@ export class ContractService {
     args: unknown[],
   ): Promise<ContractExecutionResult> {
     if (!this.contractAddressAztec || !this.contractArtifact) {
-      throw new Error("Contract address or artifact is required");
+      throw new Error("Contract address and artifact is required");
     }
 
     const contract = await Contract.at(

@@ -110,6 +110,27 @@ export const cyberpunkTheme = createTheme({
       active: "peer-checked:bg-cyan-700",
       knob: "after:bg-cyan-100 after:border-cyan-300",
     },
+
+    error: {
+      container: [
+        "bg-rose-900/20 p-4 rounded-lg",
+        "border border-rose-900/50",
+        "shadow-lg shadow-rose-900/20",
+      ].join(" "),
+    },
+
+    result: {
+      container: [
+        "mt-4 p-4",
+        "bg-slate-800/50",
+        "border border-cyan-900/50",
+        "rounded-lg",
+        "font-mono text-sm",
+        "overflow-x-auto whitespace-pre text-left",
+        "shadow-inner shadow-cyan-900/20",
+        "hover:border-cyan-700/50 transition-colors",
+      ].join(" "),
+    },
   },
 
   effects: {
@@ -202,6 +223,25 @@ export const retroTheme = createTheme({
       base: "w-11 h-6 bg-amber-800",
       active: "peer-checked:bg-amber-600",
       knob: "after:bg-amber-200 after:border-amber-400",
+    },
+
+    error: {
+      container: [
+        "bg-red-900/20 p-4 rounded-none",
+        "border-2 border-red-800",
+      ].join(" "),
+    },
+
+    result: {
+      container: [
+        "mt-4 p-4",
+        "bg-amber-900/50",
+        "border-2 border-amber-800",
+        "rounded-none",
+        "font-mono text-sm",
+        "overflow-x-auto whitespace-pre text-left",
+        "hover:border-amber-700 transition-colors",
+      ].join(" "),
     },
   },
 

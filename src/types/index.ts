@@ -2,7 +2,6 @@ import { NoirCompiledContract } from "@aztec/types/noir";
 import {
   FunctionAbi,
   ABIVariable,
-  ContractArtifact,
 } from "@aztec/foundation/abi";
 import {
   ContractService,
@@ -13,7 +12,6 @@ export interface FormFieldProps {
   functionArtifact: FunctionAbi;
   onExecute?: (data: ContractExecutionResult) => void;
   contractService: ContractService;
-  contractArtifact: ContractArtifact;
   options?: {
     showResult?: boolean;
     showError?: boolean;

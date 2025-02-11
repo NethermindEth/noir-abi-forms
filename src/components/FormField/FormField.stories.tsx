@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import FormField from ".";
 import SAMPLE_ABI from "../../assets/counter-Counter.json";
 import { FunctionArtifact } from "@aztec/foundation/abi";
+import { mockContractService } from "@/mocks";
 
 const functions = SAMPLE_ABI.functions as unknown as FunctionArtifact[];
 
@@ -47,5 +48,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     functionArtifact: functions[0],
+    contractService: mockContractService,
+    onExecute: (data) => console.log('Function executed:', data),
   },
 };

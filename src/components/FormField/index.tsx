@@ -14,7 +14,7 @@ type BadgeVariant =
   | "static"
   | "initializer";
 
-const customJSONReplacer = (key: string, value: unknown) => {
+const customJSONReplacer = (_key: string, value: unknown) => {
   if (typeof value === 'bigint') {
     return value.toString();
   }

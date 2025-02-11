@@ -29,7 +29,6 @@ export function FormContent({
               functionArtifact={func}
               onExecute={onSubmit}
               contractService={contractService}
-              contractArtifact={abi}
             />
           </div>
         </div>

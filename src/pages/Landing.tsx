@@ -8,6 +8,7 @@ import { ContractArtifact } from "@aztec/foundation/abi";
 import {
   ContractService,
   ContractExecutionResult,
+  DefaultContractService,
 } from "../services/ContractService";
 import { FormContent } from "../components/Form";
 import { Button } from "../components/ui/button";
@@ -63,7 +64,7 @@ export const Landing = () => {
     }
 
     try {
-      const service = new ContractService(
+      const service = new DefaultContractService(
         selectedWallet,
         contractArtifact,
         contractAddress,
