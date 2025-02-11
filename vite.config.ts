@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => ({
     {
       name: 'copy-barretenberg',
       buildStart() {
-        const barretenbergPath = path.resolve(__dirname, 'node_modules/@aztec/bb.js/dest/browser/index.js');
+        const barretenbergPath = path.resolve(__dirname, 'node_modules/@aztec/bb.js/dest/browser/barretenberg.js');
 
         if (fs.existsSync(barretenbergPath)) {
           this.emitFile({
