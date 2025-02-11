@@ -19,7 +19,6 @@ export default defineConfig(({ mode }) => ({
       },
     }),
   ],
-  base: '/noir-abi-forms/',
   build: mode === 'lib' ? {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
