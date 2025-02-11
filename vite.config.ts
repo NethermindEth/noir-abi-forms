@@ -22,13 +22,16 @@ export default defineConfig(({ mode }) => ({
     {
       name: 'copy-barretenberg',
       buildStart() {
-        const barretenbergPath = path.resolve(__dirname, 'node_modules/@aztec/aztec.js/barretenberg/barretenberg.js');
+        const barretenbergPath = path.resolve(__dirname, 'node_modules/@aztec/bb.js/dest/browser/index.js');
+
         if (fs.existsSync(barretenbergPath)) {
           this.emitFile({
             type: 'asset',
             fileName: 'assets/barretenberg.js',
             source: fs.readFileSync(barretenbergPath, 'utf-8')
           });
+        } else {
+          console.warn('Warning: barretenberg.js not found at:', barretenbergPath);
         }
       }
     }
